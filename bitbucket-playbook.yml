@@ -1,0 +1,5 @@
+- hosts: all
+  pre_tasks:
+    - include: tasks/load-vars.yml
+  roles:
+    - role: ansible-bitbucket

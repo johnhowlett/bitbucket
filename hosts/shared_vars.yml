@@ -1,0 +1,7 @@
+bitbucket_version: 6.7.2
+
+mobi_proxy_host: dirproxy.mobi.ch
+mobi_proxy_port: 80
+mobi_proxy_user: Z100805
+mobi_proxy_psw: Dc24Wt54Mn
+mobi_noproxy: localhost|127.0.0.1|*.mobicorp.ch|*.mobicorp.test|*.mobi.ch

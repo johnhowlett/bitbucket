@@ -1,0 +1,2 @@
+# the stagind server
+bitbucket-dev ansible_ssh_host=111.111.111.111

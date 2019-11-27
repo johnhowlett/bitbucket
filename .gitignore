@@ -1,0 +1,8 @@
+ts/cache
+tests/playbook.retry
+.molecule
+.cache
+.vagrant
+.env
+*roles
+
