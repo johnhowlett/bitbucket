@@ -1,0 +1,56 @@
+---
+- name: Bitbucket | Install git
+  apt:
+    name: git
+    state: present
+    install_recommends: yes
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Bitbucket | Install perl
+  apt:
+    name: perl
+    state: present
+    install_recommends: yes
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Bitbucket | Ensure bitbucket group exists
+  group:
+    name: "{{ bitbucket_group }}"
+    gid: 1265
+
+- name: Bitbucket | Ensure bitbucket user exists
+  user:
+    name: "{{ bitbucket_user }}"
+    uid: 5205
+    group: "{{ bitbucket_group }}"
+    shell: /bin/bash
+
+- name: Bitbucket | Ensure main bitbucket root dirs exists
+  file:
+    path: "{{ item }}"
+    owner: "{{ bitbucket_user }}"
+    group: "{{ bitbucket_group }}"
+    mode: 0755
+    state: directory
+  with_items:
+    - "{{ bitbucket_install_dir }}"
+    - "{{ bitbucket_home_dir }}"
+    - "{{ bitbucket_home_dir }}/shared"
+
+- name: Bitbucket | Download
+  get_url:
+    url: "{{ bitbucket_url }}/{{ bitbucket_package }}.tar.gz"
+    dest: "/tmp/{{ bitbucket_package }}.tar.gz"
+    owner: "{{ bitbucket_user }}"
+    group: "{{ bitbucket_group }}"
+  register: download_bitbucket
+
+- name: Bitbucket | Extract Tar file
+  unarchive:
+    src: "/tmp/{{ bitbucket_package }}.tar.gz"
+    dest: "{{ bitbucket_install_dir }}"
+    copy: no
+    owner: "{{ bitbucket_user }}"
+    group: "{{ bitbucket_group }}"

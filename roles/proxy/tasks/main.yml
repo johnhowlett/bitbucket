@@ -1,0 +1,21 @@
+---
+#- name: PROXY | copy script
+#  copy:
+#    src: /Users/john/project/ansible/bitbucket/roles/proxy/files/proxy_setup.sh
+#    dest: /tmp/proxy_setup.sh
+#    mode: "0777"
+
+- name: PROXY | setup proxy env
+  script: /Users/john/project/ansible/bitbucket/roles/proxy/files/proxy_setup.sh
+
+- name: PROXY | shell the proxy settings
+  shell: echo "{{ item }}"
+  with_items:
+    - $HTTPS_PROXY
+    - $HTTP_PROXY
+    - $NO_PROXY
+  register: result
+
+- name: PROXY | show the proxy settings
+  debug:
+    var: result

@@ -1,0 +1,43 @@
+
+# {{ ansible_managed }}
+# All options in: https://confluence.atlassian.com/bitbucketserver/bitbucket-server-config-properties-776640155.html
+
+server.port={{ bitbucket_https_port }}
+server.scheme=https
+server.secure=true
+server.ssl.enabled=true
+server.ssl.client-auth=want
+server.ssl.protocol=TLSv1.2
+server.ssl.key-store=/data/git/conf/keys/git.umobi.mobicorp.test.jks
+server.ssl.key-store-password=Pr8sc71mYqj4wbUg54n5
+server.ssl.key-password=Pr8sc71mYqj4wbUg54n5
+server.ssl.key-store-type=${keystore.type:jks}
+
+##>*******************************************************
+##> Configure Bitbucket code search index
+##> Updated by John on 2017-11-27 Auftrag W.Mueller
+##>*******************************************************
+plugin.search.codesearch.indexing.exclude=synced-forks
+
+
+##>*******************************************************
+##> Test for Application Link
+##> Updated by John on 2019-01-08
+##>*******************************************************
+server.additional-connector.1.port={{ bitbucket_port }}
+server.additional-connector.1.compression.mime-types=text/css,text/html,text/javascript,text/json,text/plain,text/xml,text/x-javascript,application/javascript,application/json,application/x-javascript,application/vnd.git-lfs+json
+server.additional-connector.1.scheme=http
+server.additional-connector.1redirect-port={{ bitbucket_https_port }}
+
+
+jmx.enabled={{ bitbucket_jmx.enabled }}
+
+{% if bitbucket_database_configuration is defined %}
+{% set conf = bitbucket_database_configuration %}
+# DB options
+jdbc.driver={{ conf.driver }}
+jdbc.url={{ conf.url }}
+jdbc.user={{ conf.user }}
+jdbc.password={{ conf.password }}
+{% endif %}
+

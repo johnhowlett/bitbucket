@@ -4,5 +4,3 @@ tests/playbook.retry
 .cache
 .vagrant
 .env
-*roles
-

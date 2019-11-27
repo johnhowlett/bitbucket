@@ -1,0 +1,12 @@
+---
+- name: Bitbucket | Copy systemd template
+  template:
+    src: bitbucket.service.j2
+    dest: /etc/systemd/system/git.service
+    mode: 0755
+
+- name: Bitbucket | Register systemd service
+  systemd:
+    name: git
+    enabled: true
+    daemon_reload: true

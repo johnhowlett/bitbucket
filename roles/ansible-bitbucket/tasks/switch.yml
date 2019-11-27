@@ -1,0 +1,15 @@
+---
+- name: Bitbucket | soft link new
+  file:
+    src: "{{ bitbucket_install_dir }}/atlassian-bitbucket-{{bitbucket_version}}"
+    dest: /app/git/latest
+    owner: "{{ bitbucket_user }}"
+    group: "{{ bitbucket_group }}"
+    state: link
+
+- name: Bitbucket | start git service
+  #  service:
+  #    name: git
+  #    state: started
+  debug:
+    msg: Git Service started

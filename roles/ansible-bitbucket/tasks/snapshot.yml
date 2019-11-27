@@ -1,0 +1,33 @@
+---
+## TODO
+#  - stop git service
+#  - make a VMOrder Snapshot
+#  - make a DB Backup
+
+- name: Bitbucket | Stop Service
+  debug:
+    msg: Git service stop
+
+#- name: Bitbucket | Stop Service
+#  service:
+#    name: git
+#    state: stopped
+
+- name: Bitbucket | checking service status
+  command: systemctl status "{{ item }}"
+  with_items:
+    - git
+  register: result
+  ignore_errors: yes
+
+- name: Bitbucket | showing report
+  debug:
+    var: result
+
+- name: Bitbucket | VMOrder Snapshot
+  debug:
+    msg: System {{ inventory_hostname }} is  <var_process_state>
+
+- name: Bitbucket | Backup DB
+  debug:
+    msg: System {{ bitbucket_database_configuration.instance }} is backedup

@@ -1,0 +1,47 @@
+---
+bitbucket_group: git
+bitbucket_user: gitadmin
+
+bitbucket_version: 6.7.2
+
+bitbucket_install_dir: /app/git/bitbucket
+bitbucket_home_dir: /data/git
+bitbucket_port: 7990
+bitbucket_https_port: 8443
+
+bitbucket_properties_template_path: bitbucket.properties.j2
+
+bitbucket_java_home: /usr/java/default
+bitbucket_jvm_min_memory: 1024m
+bitbucket_jvm_max_memory: 1024m
+bitbucket_jmx:
+  enabled: false
+  remote_port: 3333
+  rmi_server_hostname: "{{ inventory_hostname }}"
+  remote_rmi_port: 9999
+  remote_auth:
+    type: password
+    # [password, ssl]
+    # if type: password, these variables are needed
+    password: notapassword
+    password_file: "{{ bitbucket_home_dir }}/shared/notapasswordfile"
+    # if type: ssl, these variables are needed
+    # ssl_java_keystore:
+    # ssl_java_keystore_password:
+    # ssl_java_truststore:
+    # ssl_java_truststore_password:
+
+## Sample database configuration
+bitbucket_database_configuration:
+  driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  url: |
+    jdbc:sqlserver://dummy.umobi.mobicorp.test:1436;databaseName=DUMMYINSTANCE;
+  user: stashuser
+  password: dummy_psw
+  instance: DUMMYINSTANCE
+
+mobi_proxy_host: dirproxy.mobi.ch
+mobi_proxy_port: 80
+mobi_proxy_user: Z100805
+mobi_proxy_psw: Dc24Wt54Mn
+mobi_noproxy: localhost|127.0.0.1|*.mobicorp.ch|*.mobicorp.test|*.mobi.ch
